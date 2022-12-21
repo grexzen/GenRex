@@ -41,7 +41,7 @@ class ClipFront extends LitElement {
       this.useMclip = false
     }
     this.service = new ClipService(this.backendHost)
-    this.numImages = 40
+    this.numImages = 60
     this.numResultIds = 3000
     this.lastMetadataId = null
     this.onGoingMetadataFetch = false
@@ -50,16 +50,16 @@ class ClipFront extends LitElement {
     this.modality = 'image'
     this.blacklist = {}
     this.lastSearch = 'text'
-    this.displayCaptions = true
+    this.displayCaptions = false
     this.displaySimilarities = false
     this.displayFullCaptions = false
-    this.safeMode = true
-    this.removeViolence = true
+    this.safeMode = false
+    this.removeViolence = false
     this.firstLoad = true
     this.imageUrl = imageUrl === null ? undefined : imageUrl
     this.hideDuplicateUrls = true
     this.hideDuplicateImages = true
-    this.aestheticScore = ''
+    this.aestheticScore = '7'
     this.aestheticWeight = '0.5'
     this.initIndices()
   }
@@ -191,7 +191,7 @@ class ClipFront extends LitElement {
     window.history.pushState({}, '', '?' + urlParams.toString())
   }
 
-  async fetchMoreMetadata (amount = 40) {
+  async fetchMoreMetadata (amount = 120) {
     if (this.onGoingMetadataFetch) {
       return
     }
@@ -306,16 +306,16 @@ class ClipFront extends LitElement {
     }
 
     #searchBar, #searchBar:hover, #searchBar:focus, #searchBar:valid {
-      border-radius: 25px;
+      border-radius: 20px;
       border-color: #ddd;
       background-color:white;
       border-width:1px;
       width:85%;
-      padding:15px;
+      padding:10px;
       outline: none;
       border-style: solid;
-      font-size:16px;
-      font-family:arial, sans-serif;
+      font-size:14px;
+      font-family:'Roboto';
     }
     #searchBar:hover, #searchBar:focus {
       box-shadow: 0px 0px 7px  #ccc;
@@ -323,7 +323,7 @@ class ClipFront extends LitElement {
     #all {
       margin-left:2%;
       margin-right:2%;
-      margin-top:2%;
+      margin-top:1%;
     }
     #inputSearchBar:hover > #searchBar {
       box-shadow: 0px 0px 7px  #ccc !important;
@@ -373,38 +373,39 @@ class ClipFront extends LitElement {
       cursor:pointer;
     }
     #products {
-      margin-top:50px;
-      width:85%;
-      float:right;
+      margin-top:35px;
+      width:90%;
+      float:none;
       display: inline-grid;
+      margin-left: 2.5%;
     }
     @media (min-width: 500px) {
       #products {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
       }
     }
     
     @media (min-width: 700px) {
       #products{
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(2, 1fr);
       }
     }
     
     @media (min-width: 1000px) {
       #products {
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(4, 1fr);
       }
     }
     
     @media (min-width: 1300px) {
       #products {
-        grid-template-columns: repeat(7, 1fr);
+        grid-template-columns: repeat(8, 1fr);
       }
     }
     
     @media (min-width: 1600px) {
       #products{
-        grid-template-columns: repeat(8, 1fr);
+        grid-template-columns: repeat(12, 1fr);
       }
     }
     #filter {
@@ -412,17 +413,19 @@ class ClipFront extends LitElement {
       top:20px;
       width:12%;
       float:left;
+      visibility: hidden !important;
     }
     #searchLine {
-      margin-left:15%;
+      margin-left:12%;
     }
 
     figcaption {
-      font-size:16px;
+      font-size:10px;
     }
 
     figure,img.pic,figcaption {
-      width:150px;
+      width:256px;
+      height: 256px;
     }
 
     @media (max-width: 500px) {
@@ -431,12 +434,12 @@ class ClipFront extends LitElement {
         width:60%;
       }
       #filter {
-        font-size:14px;
-        width:100px;
+        font-size:10px;
+        width:50px;
       }
 
       #products {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(12, 1fr);
       }
       figure,img.pic,figcaption {
       width:70px;
@@ -446,7 +449,7 @@ class ClipFront extends LitElement {
       }
 
       figcaption {
-        font-size:12px;
+        font-size:10px;
       }
 
     #products {
